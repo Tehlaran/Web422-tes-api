@@ -1,32 +1,40 @@
 
+// pages/favourites.js
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
-import PageHeader from "@/components/PageHeader";
-import { Row, Col } from "react-bootstrap";
-import BookCard from "@/components/BookCard";
+import { Row, Col, Card } from "react-bootstrap";
 
 export default function Favourites() {
   const [favouritesList] = useAtom(favouritesAtom);
 
-  if (!favouritesList.length) {
-    return (
-      <PageHeader
-        text="Nothing Here"
-        subtext="Add a book to your favourites to see it here."
-      />
-    );
-  }
-
   return (
     <>
-      <PageHeader text="Favourites" subtext="Your Favourite Books" />
-      <Row className="gy-4">
-        {favouritesList.map((workId) => (
-          <Col key={workId} lg={3} md={6}>
-            <BookCard workId={workId} />
-          </Col>
-        ))}
-      </Row>
+      <h1>Favourites</h1>
+
+      {(!favouritesList || favouritesList.length === 0) && (
+        <p>No favourites added yet.</p>
+      )}
+
+      {favouritesList && favouritesList.length > 0 && (
+        <Row className="g-3">
+          {favouritesList.map((workId) => (
+            <Col key={workId} xs={12} md={6} lg={4}>
+              <Card className="h-100">
+                <Card.Body>
+                  <Card.Title>Favourite Work</Card.Title>
+                  <Card.Text>
+                    Work ID: <code>{workId}</code>
+                  </Card.Text>
+                  {/* 
+                    If you already have a details page route like /books/[id],
+                    you can turn this into a <Link> to that page later.
+                  */}
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 }

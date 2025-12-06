@@ -1,24 +1,21 @@
+// pages/_app.js
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/globals.css";
-import Layout from "@/components/Layout";
-import { SWRConfig } from "swr";
+import { Provider } from "jotai";
+import RouteGuard from "@/components/RouteGuard";
+import MainNav from "@/components/MainNav";
+import { Container } from "react-bootstrap";
 
-const fetcher = async (...args) => {
-  const res = await fetch(...args);
-  if (!res.ok) {
-    const err = new Error(`Request failed: ${res.status}`);
-    err.status = res.status;
-    throw err;
-  }
-  return res.json();
-};
-
-export default function App({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
-    <SWRConfig value={{ fetcher }}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </SWRConfig>
+    <Provider>
+      <MainNav />
+      <br />
+      <Container>
+        <RouteGuard>
+          <Component {...pageProps} />
+        </RouteGuard>
+      </Container>
+    </Provider>
   );
 }
