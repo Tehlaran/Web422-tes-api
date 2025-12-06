@@ -1,4 +1,6 @@
 // components/MainNav.js
+import { useAtom } from "jotai";
+import { favouritesAtom, searchHistoryAtom } from "../store";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -15,8 +17,7 @@ import {
   removeToken
 } from "../lib/authenticate";   // ⬅ changed from "@/lib/authenticate"
 
-import { useAtom } from "jotai";
-import { favouritesAtom, searchHistoryAtom } from "../store";  // ⬅ changed from "@/store"
+
 
 export default function MainNav() {
   const router = useRouter();
