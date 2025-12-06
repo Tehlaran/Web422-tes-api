@@ -13,10 +13,10 @@ import {
   isAuthenticated,
   readToken,
   removeToken
-} from "@/lib/authenticate";
+} from "../lib/authenticate";   // ⬅ changed from "@/lib/authenticate"
 
 import { useAtom } from "jotai";
-import { favouritesAtom, searchHistoryAtom } from "@/store";
+import { favouritesAtom, searchHistoryAtom } from "../store";  // ⬅ changed from "@/store"
 
 export default function MainNav() {
   const router = useRouter();
@@ -99,7 +99,6 @@ export default function MainNav() {
             {/* LOGGED IN -> Show Username Dropdown */}
             {user && (
               <NavDropdown title={user} align="end">
-
                 <Link href="/favourites" passHref legacyBehavior>
                   <NavDropdown.Item>Favourites</NavDropdown.Item>
                 </Link>
